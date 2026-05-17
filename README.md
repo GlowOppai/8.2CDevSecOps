@@ -1,35 +1,38 @@
 pipeline {
     agent any
-
+    
     stages {
-
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/GlowOppai/8.2CDevSecOps.git'
+                echo "Checking out code from GitHub..."
+                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/8.2CDevSecOps.git'
             }
         }
-
+        
         stage('Install Dependencies') {
             steps {
+                echo "Installing npm packages..."
                 sh 'npm install'
             }
         }
-
+        
         stage('Run Tests') {
             steps {
+                echo "Running tests..."
                 sh 'npm test || true'
             }
         }
-
+        
         stage('Generate Coverage Report') {
             steps {
+                echo "Generating coverage report..."
                 sh 'npm run coverage || true'
             }
         }
-
+        
         stage('NPM Audit (Security Scan)') {
             steps {
+                echo "Running security audit..."
                 sh 'npm audit || true'
             }
         }
