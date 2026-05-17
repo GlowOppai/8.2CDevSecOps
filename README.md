@@ -4,37 +4,50 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo "Checking out code from GitHub..."
                 git branch: 'main', url: 'https://github.com/GlowOppai/8.2CDevSecOps.git'
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                echo "Installing npm packages..."
                 sh 'npm install'
             }
         }
         
         stage('Run Tests') {
             steps {
-                echo "Running tests..."
                 sh 'npm test || true'
             }
         }
         
         stage('Generate Coverage Report') {
             steps {
-                echo "Generating coverage report..."
                 sh 'npm run coverage || true'
             }
         }
         
         stage('NPM Audit (Security Scan)') {
             steps {
-                echo "Running security audit..."
                 sh 'npm audit || true'
             }
+        }
+    }
+    
+    post {
+        always {
+            emailext(
+                subject: "Jenkins Build ${BUILD_NUMBER} - ${currentBuild.result}",
+                body: """
+                Build Number: ${BUILD_NUMBER}
+                Build Status: ${currentBuild.result}
+                Build URL: ${BUILD_URL}
+                
+                npm audit found security vulnerabilities.
+                See attached logs for details.
+                """,
+                to: 'mallalamanmallalaman@gmail.com',
+                attachLog: true
+            )
         }
     }
 }
