@@ -2,73 +2,47 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
-                echo '========== Stage 1: BUILD =========='
-                echo 'Tool: Maven'
-                echo 'Task: Compiling and packaging code'
-                sh 'echo "Running Maven build: mvn clean package"'
+                echo 'Building code using Maven'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo '========== Stage 2: UNIT AND INTEGRATION TESTS =========='
-                echo 'Tool: JUnit (Unit Tests), TestNG (Integration Tests)'
-                echo 'Task: Running unit and integration tests'
-                sh 'npm test || true'
+                echo 'Running tests using JUnit'
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo '========== Stage 3: CODE ANALYSIS =========='
-                echo 'Tool: SonarQube'
-                echo 'Task: Analyzing code for quality and standards'
-                sh 'echo "Running SonarQube analysis"'
+                echo 'Running code analysis using SonarQube'
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo '========== Stage 4: SECURITY SCAN =========='
-                echo 'Tool: OWASP Dependency-Check / npm audit'
-                echo 'Task: Scanning for vulnerabilities'
-                sh 'npm audit || true'
+                echo 'Scanning vulnerabilities using OWASP Dependency Check'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo '========== Stage 5: DEPLOY TO STAGING =========='
-                echo 'Tool: AWS EC2 / Docker'
-                echo 'Task: Deploying to staging server'
-                sh 'echo "Deploying to staging environment"'
+                echo 'Deploying to AWS EC2 staging server'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
-                echo '========== Stage 6: INTEGRATION TESTS ON STAGING =========='
-                echo 'Tool: Selenium / TestNG'
-                echo 'Task: Running tests in production-like environment'
-                sh 'echo "Running integration tests on staging"'
+                echo 'Running staging tests using Selenium'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo '========== Stage 7: DEPLOY TO PRODUCTION =========='
-                echo 'Tool: AWS EC2 / Docker'
-                echo 'Task: Deploying to production server'
-                sh 'echo "Deploying to production environment"'
+                echo 'Deploying to production server'
             }
-        }
-    }
-
-    post {
-        always {
-            echo '========== Pipeline Complete =========='
         }
     }
 }
