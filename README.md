@@ -35,19 +35,14 @@ pipeline {
     
     post {
         always {
-            emailext(
-                subject: "Jenkins Build ${BUILD_NUMBER} - ${currentBuild.result}",
-                body: """
-                Build Number: ${BUILD_NUMBER}
-                Build Status: ${currentBuild.result}
-                Build URL: ${BUILD_URL}
-                
-                npm audit found security vulnerabilities.
-                See attached logs for details.
-                """,
-                to: 'mallalamanmallalaman@gmail.com',
-                attachLog: true
-            )
+            mail to: 'mallalamanmallalaman@gmail.com',
+                 subject: "Jenkins Build ${BUILD_NUMBER} - ${currentBuild.result}",
+                 body: """Build Status: ${currentBuild.result}
+Build Number: ${BUILD_NUMBER}
+Build URL: ${BUILD_URL}
+
+npm audit found 142 vulnerabilities in the nodejs-goof project.
+Check Jenkins console for full audit report."""
         }
     }
 }
