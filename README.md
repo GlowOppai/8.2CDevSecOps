@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Goof - Snyk's vulnerable demo app
 [![Known Vulnerabilities](https://snyk.io/test/github/snyk/goof/badge.svg?style=flat-square)](https://snyk.io/test/github/snyk/goof)
 
@@ -212,3 +213,45 @@ snyk wizard
 
 In this application, the default `snyk wizard` answers will fix all the issues.
 When the wizard is done, restart the application and run the exploits again to confirm they are fixed.
+=======
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Checking out code from GitHub..."
+                git branch: 'main', url: 'https://github.com/GlowOppai/8.2CDevSecOps.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                echo "Installing npm packages..."
+                sh 'npm install'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                echo "Running tests..."
+                sh 'npm test || true'
+            }
+        }
+        
+        stage('Generate Coverage Report') {
+            steps {
+                echo "Generating coverage report..."
+                sh 'npm run coverage || true'
+            }
+        }
+        
+        stage('NPM Audit (Security Scan)') {
+            steps {
+                echo "Running security audit..."
+                sh 'npm audit || true'
+            }
+        }
+    }
+}
+>>>>>>> 55db05733a51560b56fbee019e8610ebaeb71f59
