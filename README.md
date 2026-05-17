@@ -39,20 +39,19 @@ pipeline {
     }
     
     post {
-        always {
-            emailext(
-                subject: "Jenkins Build ${BUILD_NUMBER}: ${BUILD_STATUS}",
-                body: """
-                Build Status: ${BUILD_STATUS}
-                Build Number: ${BUILD_NUMBER}
-                Build URL: ${BUILD_URL}
-                
-                Check console output for details.
-                """,
-                to: 'mallalamanmallalaman@gmail.com',
-                attachLog: true,
-                attachmentsPattern: '**/*.log'
-            )
-        }
+    always {
+        emailext(
+            subject: "Jenkins Build ${BUILD_NUMBER}: ${currentBuild.result}",
+            body: """
+            Build Status: ${currentBuild.result}
+            Build Number: ${BUILD_NUMBER}
+            Build URL: ${BUILD_URL}
+            
+            Check console output for npm audit results.
+            """,
+            to: 'your_email@gmail.com',
+            attachLog: true
+        )
     }
+}
 }
