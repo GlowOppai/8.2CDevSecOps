@@ -1,1 +1,1 @@
-ech 'Vipul Harish Dongre, s225775151'
+echo 'Vipul Harish Dongre, s225775151'
