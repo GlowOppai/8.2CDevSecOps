@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_USERNAME/8.2CDevSecOps.git'
+                url: 'https://github.com/GlowOppai/8.2CDevSecOps.git'
             }
         }
 
