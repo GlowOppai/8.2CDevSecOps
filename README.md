@@ -49,7 +49,7 @@ pipeline {
             
             Check console output for npm audit results.
             """,
-            to: 'your_email@gmail.com',
+            to: 'mallalamanmallalaman@gmail.com',
             attachLog: true
         )
     }
