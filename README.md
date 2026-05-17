@@ -1,2 +1,2 @@
-Student ID = 225775151
-Name = Vipul Harish Dongre
+echo 'Name = Vipul Harish Dongre'
+echo 'Student ID = 225775151'
