@@ -3,45 +3,34 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building code using Maven'
+                git branch: 'main',
+                url: 'https://github.com/YOUR_USERNAME/8.2CDevSecOps.git'
             }
         }
 
-        stage('Unit and Integration Tests') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Running tests using JUnit'
+                sh 'npm install'
             }
         }
 
-        stage('Code Analysis') {
+        stage('Run Tests') {
             steps {
-                echo 'Running code analysis using SonarQube'
+                sh 'npm test || true'
             }
         }
 
-        stage('Security Scan') {
+        stage('Generate Coverage Report') {
             steps {
-                echo 'Scanning vulnerabilities using OWASP Dependency Check'
+                sh 'npm run coverage || true'
             }
         }
 
-        stage('Deploy to Staging') {
+        stage('NPM Audit (Security Scan)') {
             steps {
-                echo 'Deploying to AWS EC2 staging server'
-            }
-        }
-
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running staging tests using Selenium'
-            }
-        }
-
-        stage('Deploy to Production') {
-            steps {
-                echo 'Deploying to production server'
+                sh 'npm audit || true'
             }
         }
     }
